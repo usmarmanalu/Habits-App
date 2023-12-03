@@ -6,6 +6,7 @@ import android.view.*
 import androidx.appcompat.app.*
 import androidx.appcompat.widget.*
 import androidx.lifecycle.*
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.*
 import com.dicoding.habitapp.*
 import com.dicoding.habitapp.data.*
@@ -17,6 +18,7 @@ import com.dicoding.habitapp.ui.random.*
 import com.dicoding.habitapp.utils.*
 import com.google.android.material.floatingactionbutton.*
 import com.google.android.material.snackbar.*
+import java.util.*
 
 class HabitListActivity : AppCompatActivity() {
 
@@ -44,21 +46,30 @@ class HabitListActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, factory)[HabitListViewModel::class.java]
 
         //TODO 7 : Submit pagedList to adapter and add intent to detail
-        habitAdapter = HabitAdapter { habit ->
+        habitAdapter = HabitAdapter { habit: Habit ->
             val intent = Intent(this, DetailHabitActivity::class.java)
             intent.putExtra(HABIT_ID, habit.id)
             startActivity(intent)
+        }
+
+        recycler.adapter = habitAdapter
+        viewModel.habits.observe(this) {
+            habitAdapter.submitList(it)
         }
 
         viewModel.snackbarText.observe(this) {
             showSnackBar(it)
         }
 
-        viewModel.habits.observe(this) {
-            habitAdapter.submitList(it)
+        val theme = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.pref_key_dark), null)
+        theme?.let {
+            val themeSelected = when((it).uppercase(Locale.ROOT)) {
+                DarkMode.ON.name -> DarkMode.ON
+                DarkMode.OFF.name -> DarkMode.OFF
+                else -> DarkMode.FOLLOW_SYSTEM
+            }
+            AppCompatDelegate.setDefaultNightMode(themeSelected.value)
         }
-
-        recycler.adapter = habitAdapter
     }
 
     //TODO 15 : Fixing bug : Menu not show and SnackBar not show when list is deleted using swipe

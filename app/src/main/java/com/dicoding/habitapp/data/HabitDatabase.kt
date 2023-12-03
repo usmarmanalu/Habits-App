@@ -2,10 +2,11 @@ package com.dicoding.habitapp.data
 
 import android.content.*
 import androidx.room.*
+import androidx.sqlite.db.*
 import com.dicoding.habitapp.R
-import kotlinx.coroutines.*
 import org.json.*
 import java.io.*
+import java.util.concurrent.*
 
 //TODO 3 : Define room database class and prepopulate database using JSON
 @Database(entities = [Habit::class], version = 1, exportSchema = false)
@@ -19,24 +20,21 @@ abstract class HabitDatabase : RoomDatabase() {
         private var INSTANCE: HabitDatabase? = null
 
         fun getInstance(context: Context): HabitDatabase {
-            return synchronized(this) {
+            return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     HabitDatabase::class.java,
                     "habit.db"
-                ).build()
-                INSTANCE = instance
-
-                val sharedPreferences = context.getSharedPreferences("myPref", Context.MODE_PRIVATE)
-                val isLoader = sharedPreferences.getBoolean("isLoaded", false)
-                if (isLoader) {
-                    sharedPreferences.edit().putBoolean("isLoaded", true).apply()
-                    runBlocking {
-                        withContext(Dispatchers.IO) {
-                            fillWithStartingData(context, instance.habitDao())
+                ).fallbackToDestructiveMigration()
+                    .allowMainThreadQueries()
+                    .addCallback(object : Callback() {
+                        override fun onCreate(db: SupportSQLiteDatabase) {
+                            Executors.newSingleThreadExecutor().execute {
+                                fillWithStartingData(context, getInstance(context).habitDao())
+                            }
                         }
-                    }
-                }
+                    }).build()
+                INSTANCE = instance
                 instance
             }
         }
@@ -51,7 +49,7 @@ abstract class HabitDatabase : RoomDatabase() {
                             Habit(
                                 item.getInt("id"),
                                 item.getString("title"),
-                                item.getLong("minutesFocus"),
+                                item.getLong("focusTime"),
                                 item.getString("startTime"),
                                 item.getString("priorityLevel")
                             )

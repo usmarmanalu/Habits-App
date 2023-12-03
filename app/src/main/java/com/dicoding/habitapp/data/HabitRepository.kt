@@ -15,8 +15,8 @@ class HabitRepository(
 
         @Volatile
         private var instance: HabitRepository? = null
-        private const val PAGE_SIZE = 20
-        private const val ENABLE_PLACEHOLDERS = true
+        const val PAGE_SIZE = 20
+        const val ENABLE_PLACEHOLDERS = true
 
         fun getInstance(context: Context): HabitRepository {
             return instance ?: synchronized(this) {
@@ -46,8 +46,8 @@ class HabitRepository(
     //TODO 5 : Complete other function inside repository
     fun getHabitById(habitId: Int): LiveData<Habit> = habitDao.getHabitById(habitId)
 
-    fun insertHabit(newHabit: Habit) = executor.execute {
-        habitDao.insertHabit(newHabit)
+    fun insertHabit(newHabit: Habit): Long {
+        return habitDao.insertHabit(newHabit)
     }
 
     fun deleteHabit(habit: Habit) {
