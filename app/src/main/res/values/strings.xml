@@ -51,4 +51,25 @@
     <string name="start">Start</string>
     <string name="stop">Stop</string>
     <string name="open_count_down">Open Count Down</string>
+
+    <string name="searchbar_hint">Search habit</string>
+
+    <string name="search">Search habit</string>
+    <string name="no_results_message">Habit tidak ditemukan</string>
+    <string name="motivasi">"Ketekunan adalah kuncinya. Setiap kebiasaan positif yang Anda tanamkan hari ini adalah investasi untuk masa depan yang lebih baik. Teruslah melangkah ke arah kebaikan, dan lihatlah betapa kebiasaan kecil dapat membawa perubahan besar dalam hidup Anda. Anda mampu mengubah hidup Anda satu kebiasaan baik pada satu waktu. Tetaplah konsisten dan jadikan setiap hari kesempatan baru untuk menjadi versi terbaik dari diri Anda."</string>
+
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="logout">Logout</string>
+    <string name="portal_berita_terikini">Portal berita terikini</string>
+    <string name="register">Register</string>
+    <string name="username_dan_password_tidak_boleh_kosong">Username dan Password tidak boleh kosong</string>
+    <string name="berhasil_login">Berhasil Login</string>
+    <string name="akun_tidak_terdaftar">Akun tidak terdaftar</string>
+    <string name="gagal_melakukan_registrasi">Gagal melakukan registrasi</string>
+    <string name="registrasi_berhasil">Registrasi berhasil</string>
+
+
+    <string name="duplicate_habit_message">Habit dijam dengan durasi sudah ada, harap atur waktu yang berbeda</string>
 </resources>

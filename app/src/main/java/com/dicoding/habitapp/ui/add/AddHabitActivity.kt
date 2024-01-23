@@ -7,6 +7,7 @@ import androidx.appcompat.app.*
 import androidx.lifecycle.*
 import com.dicoding.habitapp.*
 import com.dicoding.habitapp.data.*
+import com.dicoding.habitapp.databinding.*
 import com.dicoding.habitapp.ui.*
 import com.dicoding.habitapp.utils.*
 import java.text.*
@@ -15,10 +16,12 @@ import java.util.*
 class AddHabitActivity : AppCompatActivity(), TimePickerFragment.DialogTimeListener {
 
     private lateinit var viewModel: AddHabitViewModel
+    private lateinit var binding: ActivityAddHabitBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_habit)
+        binding = ActivityAddHabitBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         supportActionBar?.title = getString(R.string.add_habit)
 
@@ -47,15 +50,26 @@ class AddHabitActivity : AppCompatActivity(), TimePickerFragment.DialogTimeListe
                 val priorityLevel =
                     findViewById<Spinner>(R.id.sp_priority_level).selectedItem.toString()
 
+
+
                 if (title.isNotEmpty() && minutesFocus.isNotEmpty() && startTime.isNotEmpty() && priorityLevel.isNotEmpty()) {
-                    val habit = Habit(
-                        title = title,
-                        minutesFocus = minutesFocus.toLong(),
-                        startTime = startTime,
-                        priorityLevel = priorityLevel
-                    )
-                    viewModel.saveHabit(habit)
-                    finish()
+
+                    val isDuplicate = viewModel.isDuplicateHabit(startTime, minutesFocus.toLong())
+
+                    if (isDuplicate) {
+                        binding.messageIsDuplicat.visibility = View.VISIBLE
+                        binding.messageIsDuplicat.text = getString(R.string.duplicate_habit_message)
+                    } else {
+                        binding.messageIsDuplicat.visibility = View.GONE
+                        val habit = Habit(
+                            title = title,
+                            minutesFocus = minutesFocus.toLong(),
+                            startTime = startTime,
+                            priorityLevel = priorityLevel
+                        )
+                        viewModel.saveHabit(habit)
+                        finish()
+                    }
                 } else {
                     Toast.makeText(this, getString(R.string.empty_message), Toast.LENGTH_SHORT)
                         .show()
@@ -78,5 +92,7 @@ class AddHabitActivity : AppCompatActivity(), TimePickerFragment.DialogTimeListe
         calendar.set(Calendar.MINUTE, minute)
         val dateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
         findViewById<TextView>(R.id.add_tv_start_time).text = dateFormat.format(calendar.time)
+
+        binding.messageIsDuplicat.visibility = View.GONE
     }
 }

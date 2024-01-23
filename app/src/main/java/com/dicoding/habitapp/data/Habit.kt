@@ -4,7 +4,7 @@ import android.os.*
 import androidx.room.*
 import kotlinx.parcelize.*
 
-//TODO 1 : Define a local database table using the schema in app/schema/habits.json
+// Define a local database table using the schema in app/schema/habits.json
 @Parcelize
 @Entity(tableName = "habits")
 data class Habit(

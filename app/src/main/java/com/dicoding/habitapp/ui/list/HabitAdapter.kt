@@ -11,7 +11,7 @@ class HabitAdapter(
     private val onClick: (Habit) -> Unit
 ) : PagedListAdapter<Habit, HabitAdapter.HabitViewHolder>(DIFF_CALLBACK) {
 
-    //TODO 8 : Create and initialize ViewHolder
+    // Create and initialize ViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HabitViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(
             R.layout.habit_item, parent, false
@@ -20,7 +20,7 @@ class HabitAdapter(
     }
 
     override fun onBindViewHolder(holder: HabitViewHolder, position: Int) {
-        //TODO 9 : Get data and bind them to ViewHolder
+        // Get data and bind them to ViewHolder
          getItem(position)?.let {
             holder.bind(it)
         }
@@ -63,5 +63,4 @@ class HabitAdapter(
         }
 
     }
-
 }

@@ -2,7 +2,7 @@ package com.dicoding.habitapp.ui.random
 
 import androidx.lifecycle.*
 import com.dicoding.habitapp.data.Habit
-import com.dicoding.habitapp.data.HabitRepository
+import com.dicoding.habitapp.data.repository.HabitRepository
 
 class RandomHabitViewModel (habitRepository: HabitRepository) : ViewModel() {
     val priorityLevelHigh: LiveData<Habit> = habitRepository.getRandomHabitByPriorityLevel("High")

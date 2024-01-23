@@ -46,7 +46,7 @@ class SettingsActivity : AppCompatActivity() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
 
-            //TODO 11 : Update theme based on value in ListPreference
+            // Update theme based on value in ListPreference
             val switchDarkMode: ListPreference? = findPreference(getString(R.string.pref_key_dark))
             switchDarkMode?.setOnPreferenceChangeListener { _, newValue ->
                 val stringValue = newValue.toString()

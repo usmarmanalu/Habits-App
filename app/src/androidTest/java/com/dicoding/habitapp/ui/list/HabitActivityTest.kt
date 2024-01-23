@@ -14,7 +14,7 @@ import com.dicoding.habitapp.ui.add.*
 import org.junit.*
 import org.junit.runner.*
 
-//TODO 16 : Write UI test to validate when user tap Add Habit (+), the AddHabitActivity displayed
+// Write UI test to validate when user tap Add Habit (+), the AddHabitActivity displayed
 @RunWith(AndroidJUnit4ClassRunner::class)
 class HabitActivityTest {
 

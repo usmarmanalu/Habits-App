@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.dicoding.habitapp.ui.list.HabitListActivity">
 
-
     <item
         android:id="@+id/action_random"
         android:orderInCategory="100"
@@ -22,5 +21,11 @@
         android:id="@+id/action_settings"
         android:orderInCategory="102"
         android:title="@string/action_settings"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_auth"
+        android:orderInCategory="102"
+        android:title="@string/logout"
         app:showAsAction="never" />
 </menu>

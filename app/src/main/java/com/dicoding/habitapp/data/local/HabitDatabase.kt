@@ -1,14 +1,15 @@
-package com.dicoding.habitapp.data
+package com.dicoding.habitapp.data.local
 
 import android.content.*
 import androidx.room.*
 import androidx.sqlite.db.*
 import com.dicoding.habitapp.R
+import com.dicoding.habitapp.data.*
 import org.json.*
 import java.io.*
 import java.util.concurrent.*
 
-//TODO 3 : Define room database class and prepopulate database using JSON
+// Define room database class and prepopulate database using JSON
 @Database(entities = [Habit::class], version = 1, exportSchema = false)
 abstract class HabitDatabase : RoomDatabase() {
 

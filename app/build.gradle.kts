@@ -16,6 +16,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "APIKEY", "\"f649f0060f494374993c6c9e98b91997\"")
         testInstrumentationRunnerArguments += mapOf(
             "clearPackageData" to "true"
         )
@@ -40,7 +41,9 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
-
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -90,5 +93,29 @@ dependencies {
 
     implementation("androidx.paging:paging-runtime-ktx:${extra["paging_version"]}")
     implementation("androidx.viewpager2:viewpager2:${extra["viewpager2_version"]}")
+
+    implementation ("io.insert-koin:koin-core:3.3.2")
+    implementation ("io.insert-koin:koin-android:3.3.2")
+    testImplementation ("junit:junit:4.13.2")
+
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+    implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+
+    androidTestImplementation ("io.insert-koin:koin-test-junit4:3.3.2")
+
+    testImplementation ("org.mockito:mockito-core:5.9.0")
+    testImplementation ("androidx.arch.core:core-testing:2.1.0")
+    testImplementation ("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
+    androidTestImplementation ("androidx.test.ext:junit:1.1.3")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0")
+
+    testImplementation ("org.powermock:powermock-api-mockito2:2.0.9")
+    testImplementation ("org.powermock:powermock-module-junit4:2.0.9")
+    testImplementation ("org.powermock:powermock-module-junit4-rule-agent:2.0.9")
+
+    coreLibraryDesugaring ("com.android.tools:desugar_jdk_libs:1.1.5")
+
 
 }

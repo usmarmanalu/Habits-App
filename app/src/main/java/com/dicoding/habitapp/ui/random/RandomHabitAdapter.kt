@@ -41,7 +41,7 @@ class RandomHabitAdapter(
 
     inner class PagerViewHolder internal constructor(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
-        //TODO 14 : Create view and bind data to item view
+        // Create view and bind data to item view
         fun bind(pageType: PageType, pageData: Habit) {
             val tvTitle = itemView.findViewById<TextView>(R.id.pager_tv_title)
             val tvStartTime = itemView.findViewById<TextView>(R.id.pager_tv_start_time)

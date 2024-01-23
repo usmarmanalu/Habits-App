@@ -1,16 +1,18 @@
 package com.dicoding.habitapp.ui.list
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.switchMap
-import androidx.paging.PagedList
-import com.dicoding.habitapp.R
+import androidx.lifecycle.*
+import androidx.paging.*
+import com.dicoding.habitapp.*
 import com.dicoding.habitapp.data.*
-import com.dicoding.habitapp.utils.Event
-import com.dicoding.habitapp.utils.HabitSortType
+import com.dicoding.habitapp.data.repository.*
+import com.dicoding.habitapp.utils.*
+import kotlinx.coroutines.*
 
 class HabitListViewModel(private val habitRepository: HabitRepository) : ViewModel() {
+
+    private val _isRefreshing = MutableLiveData<Boolean>()
+    val isRefreshing: LiveData<Boolean>
+        get() = _isRefreshing
 
     private val _sort = MutableLiveData<HabitSortType>()
 
@@ -28,6 +30,14 @@ class HabitListViewModel(private val habitRepository: HabitRepository) : ViewMod
         _sort.value = HabitSortType.START_TIME
     }
 
+    fun refreshHabits() {
+        _isRefreshing.value = true
+        viewModelScope.launch {
+            _isRefreshing.postValue(false)
+        }
+    }
+
+
     fun sort(sortType: HabitSortType) {
         _sort.value = sortType
     }
@@ -41,4 +51,7 @@ class HabitListViewModel(private val habitRepository: HabitRepository) : ViewMod
     fun insert(habit: Habit) {
         habitRepository.insertHabit(habit)
     }
+
+    fun searchHabits(query: String): LiveData<PagedList<Habit>> =
+        habitRepository.searchHabits(query)
 }
