@@ -10,7 +10,6 @@
 
 ```bash
     git clone https://github.com/usmarmanalu/Habits-App.git
-)
     cd MD-Repo
 ```
 
