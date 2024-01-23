@@ -9,7 +9,8 @@
 1. **Clone Repository:**
 
 ```bash
-    git clone https://github.com/SaveMoneyCapstone/MD-Repo.git
+    git clone https://github.com/usmarmanalu/Habits-App.git
+)
     cd MD-Repo
 ```
 
